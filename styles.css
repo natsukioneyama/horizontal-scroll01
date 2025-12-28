@@ -1,0 +1,489 @@
+/* ========================================
+   Base
+   ======================================== */
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body{
+  margin: 0;
+  font-family: "acumin-pro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background: #f7f7f5;
+  color: #111;
+}
+
+/* ========================================
+   Layout
+   ======================================== */
+
+.layout{
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.main{
+  padding: 24px;
+}
+
+/* ========================================
+   NAV (shared)
+   ======================================== */
+
+.nav{
+  background: #f7f7f5;
+  transition: opacity 0.3s ease;
+  will-change: opacity;
+}
+
+.nav.is-faded{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-inner{
+  padding: 24px 18px;
+}
+
+.nav-top{
+  display: flex;
+  align-items: flex-start;
+}
+
+.brand{
+  display: inline-block;
+  text-decoration: none;
+  color: #111;
+  font-size: 0.7rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+}
+
+.brand-sub{
+  font-size: 0.7rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: #111;
+  text-decoration: none;
+}
+
+.nav-menu{
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+  margin-bottom: 4px; /* リンク群との距離 */
+  pointer-events: none; /* クリック不可 */
+}
+
+.nav-menu .nav-link[href*="overview"] {
+  margin-top: 30px;
+}
+
+
+.nav-link{
+  display: inline-block;
+  text-decoration: none;
+  color: #111;
+  font-size: 0.7rem;
+  padding: 3px 0;
+  opacity: 0.85;
+}
+
+.nav-link:hover{ opacity: 1; }
+
+.nav-link.is-active,
+.nav-link[aria-current="page"]{
+  text-decoration: underline;
+  opacity: 1;
+}
+
+/* “Information” link (same look/feel as nav) */
+.nav .js-info{
+  font-size: 0.7rem;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  padding-top: 30px;
+}
+.nav .js-info:hover{ opacity: 0.75; }
+
+/* ========================================
+   Info page (shared)
+   ======================================== */
+
+.info-page{
+  position: fixed;
+  inset: 0;
+  background: #f7f7f5;
+  display: none;
+  z-index: 1200;
+}
+
+body.info-open .info-page{ display: block; }
+body.info-open{ overflow: hidden; }
+
+.info-page__inner{
+  padding: 16px;
+  line-height: 1.5;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.hp-label,
+.hp-list,
+.hp-note{
+  margin: 0 0 26px;
+}
+
+.hp-pdflink{ margin: 56px 0; }
+
+.hp-copyright{
+  margin-top: 60px;
+  font-size: 0.6rem;
+  font-weight: 100;
+  letter-spacing: 0.06em;
+}
+
+.info-page a{
+  color: inherit;
+  text-decoration: none;
+}
+.info-page a:hover{ opacity: 0.75; }
+
+.info-back{
+  display: inline-block;
+  margin-bottom: 32px;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+.info-back:hover{ opacity: 0.7; }
+
+/* ========================================
+   Responsive nav layout (shared)
+   ======================================== */
+
+@media (min-width: 861px){
+  .nav{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 180px;
+    height: 100svh;
+    z-index: 1000;
+  }
+
+  .nav-inner{
+    height: 100svh;
+    overflow: auto;
+  }
+
+  .nav-top{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main{
+    padding: 24px;
+    padding-left: calc(180px + 24px);
+    transition: padding-left 0.25s ease;
+  }
+
+  .layout.is-nav-faded .main{
+    padding-left: 24px;
+  }
+}
+
+@media (max-width: 860px){
+  .nav{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .nav-inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px;
+  }
+
+  .nav-top{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-menu{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .main{ padding: 16px; }
+
+  
+}
+
+
+/* ========================================
+   Mobile hamburger overlay (no HTML edit)
+   - JS inserts .nav-toggle
+   - body.nav-open shows nav-menu as full-screen overlay
+   ======================================== */
+
+/* 1) hamburger button */
+.nav-toggle{
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 6px 8px;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: #111;
+  cursor: pointer;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+.nav-toggle:hover{ opacity: 1; }
+
+/* 2) <= 860px */
+@media (max-width: 860px){
+
+  /* 通常時：横メニューは出す/出さないを “設計で選ぶ” */
+  /* もし通常時に横メニュー不要なら display:none、必要ならこの行は消す */
+  .nav-menu{
+    display: none;
+  }
+
+  /* open時：全画面化 */
+  body.nav-open{
+    overflow: hidden;
+  }
+
+  body.nav-open .nav{
+    position: fixed;
+    inset: 0;
+    z-index: 1300;
+    background: #f7f7f5;
+  }
+
+  /* 2段グリッド：上段=nav-top + Menu、下段=nav-menu */
+  body.nav-open .nav-inner{
+    min-height: 100svh;
+    padding: 16px;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+  }
+
+  body.nav-open .nav-top{
+    grid-column: 1;
+    grid-row: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin: 0;
+  }
+
+  body.nav-open .nav-toggle{
+    grid-column: 2;
+    grid-row: 1;
+
+    margin: 0;
+    justify-self: end;
+    align-self: start;
+  }
+
+  /* nav-menu を nav-top の直下（左カラム）へ */
+  body.nav-open .nav-menu{
+    grid-column: 1;
+    grid-row: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-self: start;
+    align-self: start;
+
+    align-items: flex-start;
+    text-align: left;
+
+    margin: 24px 0 0;
+  }
+
+   body.nav-open .nav-link{
+    padding: 2px 0;   /* ← ここが一番効く */
+    line-height: .8; /* ← 行間を締める */
+  }
+
+  /* セクション分けだけは残す */
+  body.nav-open .nav-link[href*="overview"]{
+    margin-top: 30px; /* 30 → 20 など */
+  }
+
+  body.nav-open .js-info{
+    padding-top: 30px;
+  }
+
+  /* ラベルは pointer-events:none のままでOK（shared継承） */
+  body.nav-open .nav-label{
+    display: block;
+  }
+
+  /* 念のため左詰固定 */
+  body.nav-open .nav-label,
+  body.nav-open .nav-link{
+    text-align: left;
+  }
+}
+
+/* 3) >= 861px */
+@media (min-width: 861px){
+  .nav-toggle{
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================================
+   horizontal scroll: page-specific (Main / Grid)
+   目的:
+   - portrait (mobile/tablet): 縦スクロールで1カラム
+   - desktop landscape (>=900px): 横スクロール
+   - nav は上で “shared” として完結している前提
+   ======================================== */
+
+/* --- Main defaults (portrait / base) --- */
+/* 注意: shared側で .main padding は既に定義されているので
+   ここでは “上書きしない” ほうが整理しやすい。
+   ただし portrait 時のギャラリー幅だけはここで定義する。 */
+
+.grid{
+  width: min(980px, 100%);
+  margin: 0 auto;
+}
+
+.grid-inner{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.grid-inner::before{
+  content: none;
+}
+
+.card{
+  margin: 0;
+  width: 100%;
+}
+
+.card img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* portrait/mobile spacing tweak (optional) */
+@media (max-width: 860px){
+  .grid{ width: 100%; }
+  .grid-inner{ gap: 16px; }
+}
+
+/* --- Horizontal scroll mode (desktop landscape) --- */
+@media (min-width: 900px) and (orientation: landscape){
+
+  /* main の left padding は shared 側(= nav幅ぶん)を維持する想定。
+     横モードだけ、縦スクロール混入を防ぐために overflow を切る。 */
+  .main{
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  .grid{
+    width: 100%;
+    margin: 0;
+  }
+
+  .grid-inner{
+    display: flex;
+    gap: 48px;
+
+    height: 100svh;
+
+    padding: 24px 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    align-items: center;
+    -webkit-overflow-scrolling: touch;
+
+    scroll-snap-type: x proximity;
+  }
+
+  /* 左余白スペーサー（nav幅ぶん） */
+  .grid-inner::before{
+    content: none;
+  }
+
+  .card{
+    flex: 0 0 auto;
+    width: auto;
+    margin: 0;
+    scroll-snap-align: start;
+  }
+
+  .card img{
+    width: auto;
+    height: calc(100svh - 48px);
+    max-height: 900px;
+  }
+}
+
+
+
+
+
+
+
+
+
