@@ -1075,19 +1075,19 @@ document.addEventListener('DOMContentLoaded', () => {
    Shared Top Nav (inject)
    - Put this near the bottom of script.js
    ========================= */
-
 (function injectTopNav(){
   const navs = document.querySelectorAll('.js-site-nav');
-  if(!navs.length) return;
+  if (!navs.length) return;
 
-  // ここを増やせば全ページ一発で反映されます
+  // GitHub Pages の /{repo}/... から repo 名を自動抽出
+  const repoName = location.pathname.split('/').filter(Boolean)[0] || '';
+  const repoHome = repoName ? `/${repoName}/index.html` : '/index.html';
+
   const links = [
-    { href: 'index.html',    label: 'Overview'  },
-    { href: 'editorial.html',label: 'Editorial' },
-    //{ href: 'beauty.html',   label: 'BEAUTY'    },
-    { href: 'video.html',   label: 'Moving Images'  },
-    //{ href: 'info.html',     label: 'Info'      },
-    { href: '/index.html', label: 'Back to main page', external: true }
+    { href: 'index.html',       label: 'Overview' },
+    { href: 'editorial.html',   label: 'Editorial' },
+    { href: 'video.html',       label: 'Moving Images' },
+    { href: repoHome,           label: 'Back to main page', external: true }
   ];
 
   const path = location.pathname.split('/').pop();
