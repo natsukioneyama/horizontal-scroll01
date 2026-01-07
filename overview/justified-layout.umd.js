@@ -82,17 +82,3 @@
 
   return computeLayout;
 });
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  const topbar = document.querySelector('.topbar');
-  if (!topbar) return;
-
-  const setBarH = () => {
-    const h = Math.ceil(topbar.getBoundingClientRect().height);
-    document.documentElement.style.setProperty('--bar-h', `${h}px`);
-  };
-
-  setBarH();
-  window.addEventListener('resize', setBarH);
-});

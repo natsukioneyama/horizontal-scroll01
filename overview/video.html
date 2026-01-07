@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"   content="width=device-width, initial-scale=1.0, maximum-scale=2.0, viewport-fit=cover"/>
+  <meta name="format-detection" content="telephone=no, email=no, address=no, date=no" />
+  <title>moving_image</title>
+  <meta name="description" content="Paris-based makeup artist. Selected works in beauty, fashion and editorial projects." />
+  <meta property="og:title" content="NATSUKI ONEYAMA — MAKE-UP ARTIST" />
+  <meta property="og:description" content="Paris-based makeup artist working across beauty, fashion and editorial projects." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://natsukioneyama.com/" />
+
+  <link rel="stylesheet" href="https://use.typekit.net/tar7poy.css">
+    <link rel="stylesheet" href="./styles.css" />
+  <script src="./justified-layout.umd.js" defer></script>
+  <script src="./script.js" defer></script>
+
+
+</head>
+
+<body>
+<header class="topbar">
+
+   <div class="brand">
+    <a href="overview.html" class="artist">Your Name, Your Role</a>
+     <!--  <span class="role"></span> -->
+  </div>
+
+  <nav class="toplinks js-site-nav" aria-label="Primary"></nav>
+
+</header>
+
+
+  <main class="page">
+    <section id="overview" class="overview">
+      <div id="grid">
+
+
+     <figure class="jl-item is-video" data-w="1152" data-h="648">
+        <video src="thmbs/video/v01.mp4" muted loop playsinline  autoplay></video>></video>
+        <div class="lb-data" data-type="video" data-full="img/video/v01.mp4" data-title="NOWNESS" data-line1="Massimiliano Bomba" data-line2=""></div>
+     </figure>
+
+     <figure class="jl-item is-video" data-w="720" data-h="900">
+        <video src="thmbs/video/v02.mp4" muted loop playsinline  autoplay></video>></video>
+        <div class="lb-data" data-type="video" data-full="img/video/v02.mp4" data-title="GIVENCHY HOMME" data-line1="" data-line2=""></div>
+     </figure>
+
+     
+
+      </div>
+    </section>
+  </main>
+
+
+
+<!-- ===== CUSTOM LIGHTBOX (gm) ===== -->
+<div class="gm" aria-hidden="true" id="gm">
+  <button class="gm-backdrop" aria-hidden="true"></button>
+
+  <div class="gm-frame">
+    <img id="gmImage" class="gm-img" alt="">
+    <div class="gm-video-wrap" hidden>
+      <video id="gmVideo" playsinline muted></video>
+      
+      <!-- ★ オリジナル動画ナビ UI（ここが正しい挿入位置） -->
+      <div class="sv-controls">
+        <div class="sv-progress">
+        <div class="sv-progress__bar"></div>
+         </div>
+
+        <div class="sv-nav">
+          <button type="button" class="sv-btn sv-btn--play">PAUSE</button>
+          <button type="button" class="sv-btn sv-btn--fs">FULL</button>
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+    <div class="gm-caption">
+     <p class="gm-name">
+     <a href="overview.html" class="gm-main">
+       Your Name, Your Role 
+     </a><br>
+     <span class="gm-subtitle"></span>
+    </p>
+
+      <p class="gm-ttl"></p>
+      <p class="gm-sub"></p>
+    </div>
+
+    <div class="gm-counter"></div>
+    <button class="gm-close">BACK</button>
+
+    <!-- click zones -->
+    <button class="gm-hit gm-prev"></button>
+    <button class="gm-hit gm-next"></button>
+  </div>
+</div>
+
+
+  
+</body>
+</html>
