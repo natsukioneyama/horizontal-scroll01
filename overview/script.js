@@ -1084,7 +1084,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const repoHome = repoName ? `/${repoName}/index.html` : '/index.html';
 
   const links = [
-    { href: 'index.html',       label: 'Overview' },
+    { href: 'overview.html',       label: 'Overview' },
     { href: 'editorial.html',   label: 'Editorial' },
     { href: 'video.html',       label: 'Moving Images' },
     { href: repoHome,           label: 'Back to main page', external: true }
