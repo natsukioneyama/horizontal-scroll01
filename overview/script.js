@@ -449,34 +449,7 @@ function resetMedia() {
   gm.classList.remove('is-portrait-video');
 }
 
-
-
-  function openAt(index) {
-    currentIndex = (index + thumbItems.length) % thumbItems.length;
-
-    const item = thumbItems[currentIndex];
-    const img  = item.querySelector('img');
-    const meta = item.querySelector('.lb-data');
-
-    resetMedia();
-
-    if (meta && meta.dataset.type === 'video') {
-      showVideo(meta);
-    } else if (img) {
-      showImage(img);
-    }
-
-    updateCaption(img, meta);
-    updateCounter();
-    preloadAround(currentIndex);
-
-    gm.setAttribute('aria-hidden', 'false');
-
-    // Lightbox中のUI制御用（例：トップバー隠す等）
-    document.body.classList.add('lb-open');
-  }
-
-  function closeModal() {
+function closeModal() {
   gm.setAttribute('aria-hidden', 'true');
   resetMedia();
   document.body.classList.remove('lb-open');
@@ -488,6 +461,34 @@ function resetMedia() {
     controls.style.pointerEvents = '';
   }
 }
+
+function openAt(index) {
+  currentIndex = (index + thumbItems.length) % thumbItems.length;
+
+  const item = thumbItems[currentIndex];
+  const img  = item.querySelector('img');
+  const meta = item.querySelector('.lb-data');
+
+  // ① 先に表示（レイアウトツリーに乗せる）
+  gm.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('lb-open');
+
+  // ② 次のフレームで中身を差し替える（Safari安定策）
+  requestAnimationFrame(() => {
+    resetMedia();
+
+    if (meta && meta.dataset.type === 'video') {
+      showVideo(meta);
+    } else if (img) {
+      showImage(img);
+    }
+
+    updateCaption(img, meta);
+    updateCounter();
+    preloadAround(currentIndex);
+  });
+}
+
 
 
   /* =========================
@@ -937,13 +938,33 @@ document.addEventListener('DOMContentLoaded', () => {
     gmVWrap.hidden = true;
   }
 
-  function openAt(index) {
-    currentIndex = (index + thumbItems.length) % thumbItems.length;
 
-    const item = thumbItems[currentIndex];
-    const img  = item.querySelector('img');
-    const meta = item.querySelector('.lb-data');
+function closeModal() {
+  gm.setAttribute('aria-hidden', 'true');
+  resetMedia();
+  document.body.classList.remove('lb-open');
 
+  const controls = gm.querySelector('.sv-controls');
+  if (controls) {
+    controls.classList.remove('is-visible');
+    controls.style.opacity = '';
+    controls.style.pointerEvents = '';
+  }
+}
+
+function openAt(index) {
+  currentIndex = (index + thumbItems.length) % thumbItems.length;
+
+  const item = thumbItems[currentIndex];
+  const img  = item.querySelector('img');
+  const meta = item.querySelector('.lb-data');
+
+  // ① 先に表示（レイアウトツリーに乗せる）
+  gm.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('lb-open');
+
+  // ② 次のフレームで中身を差し替える（Safari安定策）
+  requestAnimationFrame(() => {
     resetMedia();
 
     if (meta && meta.dataset.type === 'video') {
@@ -955,24 +976,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCaption(img, meta);
     updateCounter();
     preloadAround(currentIndex);
-
-    gm.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('lb-open');
-  }
-
-  function closeModal() {
-    gm.setAttribute('aria-hidden', 'true');
-    resetMedia();
-    document.body.classList.remove('lb-open');
-
-    // 推奨：コントロール状態を軽くリセット
-    const controls = gm.querySelector('.sv-controls');
-    if (controls) {
-      controls.classList.remove('is-visible');
-      controls.style.opacity = '';
-      controls.style.pointerEvents = '';
-    }
-  }
+  });
+}
 
   thumbItems.forEach((item, index) => {
     item.addEventListener('click', (e) => {

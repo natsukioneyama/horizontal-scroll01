@@ -362,22 +362,29 @@ body.jl-ready #grid {
    12) Lightbox: gm (gallery modal)
    ========================================================================== */
 
+
 /* aria-hidden="true" のときは完全に消す */
 .gm[aria-hidden="true"] {
-  display: none;
+opacity: 0;
+visibility: hidden;
+pointer-events: none;
 }
 
 /* モーダル本体（画面全体固定） */
 .gm {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: grid;
-  place-items: center;
-
-  /* 画面下のキャプション・クローズボタン用スペース */
-  --gm-footer-h: 120px;
+position: fixed;
+inset: 0;
+z-index: 9999;
+display: grid;
+place-items: center;
+/* 画面下のキャプション・クローズボタン用スペース */
+--gm-footer-h: 120px;
+/* 表示側の既定値（上のaria-hiddenと対になる） */
+opacity: 1;
+visibility: visible;
+pointer-events: auto;
 }
+
 
 /* 小さめ画面ではフッター領域を増やす */
 @media (max-width: 767px) {
